@@ -30,9 +30,12 @@ const moveToSlide = (track, currentSlide, targetSlide) => {
 }
 
 const arrowVisibility = (slides, prevButton, nextButton, targetIndex) => {
+    console.log(`targetIndex is current ${targetIndex}`);
     if (targetIndex === 0) {
         prevButton.classList.add('is-hidden');
+        nextButton.classList.remove('is-hidden');
     } else if (targetIndex === slides.length -1) {
+        prevButton.classList.remove('is-hidden');
         nextButton.classList.add('is-hidden');
     } else {
         prevButton.classList.remove('is-hidden');
@@ -45,12 +48,12 @@ prevButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const currentDot = carouselNav.querySelector('.current-indicator');
     const prevSlide = currentSlide.previousElementSibling;
-    const targetIndex = slides.findIndex(slide => slide === prevSlide);
-    const targetDot = dots[targetIndex];
+    const prevIndex = slides.findIndex(slide => slide === prevSlide);
+    const targetDot = dots[prevIndex];
     // move to previous slide
     moveToSlide(track, currentSlide, prevSlide);
     moveToDot(currentDot, targetDot);
-    arrowVisibility(slides, prevButton, nextButton, targetIndex);
+    arrowVisibility(slides, prevButton, nextButton, prevIndex);
 })
 
 // when I click right, move slides to the right
@@ -58,8 +61,8 @@ nextButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const currentDot = carouselNav.querySelector('.current-indicator');
     const nextSlide = currentSlide.nextElementSibling;
-    const targetIndex = slides.findIndex(slide => slide === nextSlide);
-    const targetDot = dots[targetIndex]
+    const nextIndex = slides.findIndex(slide => slide === nextSlide);
+    const targetDot = dots[nextIndex];
     
     // move to the next slide
     moveToSlide(track, currentSlide, nextSlide);
@@ -67,7 +70,7 @@ nextButton.addEventListener('click', e => {
     // update dot in nav
     moveToDot(currentDot, targetDot);
 
-    arrowVisibility(slides, prevButton, nextButton, targetIndex);
+    arrowVisibility(slides, prevButton, nextButton, nextIndex);
 
 })
 
@@ -85,6 +88,7 @@ carouselNav.addEventListener('click', e => {
     const targetIndex = dots.findIndex(dot => dot === targetDot);
     const targetSlide = slides[targetIndex];
     
-    moveToSlide(track, currentSlide, targetSlide)
+    moveToSlide(track, currentSlide, targetSlide);
     moveToDot(currentDot, targetDot);
+    arrowVisibility(slides, prevButton, nextButton, targetIndex);
 })
