@@ -16,37 +16,59 @@ const setSlidePosition = (slide, index) => {
 
 slides.forEach(setSlidePosition);
 
+// change color of dot that has been clicked
+const moveToDot = (currentDot, targetDot) => {
+    currentDot.classList.remove('current-indicator');
+    targetDot.classList.add('current-indicator');
+}
+
 const moveToSlide = (track, currentSlide, targetSlide) => {
     track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
     currentSlide.classList.remove('current-slide');
     targetSlide.classList.add('current-slide');
+    
 }
 
-// change color of dot that has been clicked
-const moveToDot = (slides, currentDot, targetDot) => {
-    console.log(currentDot);
-    currentDot.classList.remove('current-indicator');
-    targetDot.classList.add('current-indicator');
-    //slides[targetSlide].classList.add('current__indicator');
-
+const arrowVisibility = (slides, prevButton, nextButton, targetIndex) => {
+    if (targetIndex === 0) {
+        prevButton.classList.add('is-hidden');
+    } else if (targetIndex === slides.length -1) {
+        nextButton.classList.add('is-hidden');
+    } else {
+        prevButton.classList.remove('is-hidden');
+        nextButton.classList.remove('is-hidden');
+    }
 }
 
 // when I click left, move slides to the left
 prevButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
-    console.log(currentSlide);
+    const currentDot = carouselNav.querySelector('.current-indicator');
     const prevSlide = currentSlide.previousElementSibling;
+    const targetIndex = slides.findIndex(slide => slide === prevSlide);
+    const targetDot = dots[targetIndex];
     // move to previous slide
     moveToSlide(track, currentSlide, prevSlide);
-    //moveToDot()
+    moveToDot(currentDot, targetDot);
+    arrowVisibility(slides, prevButton, nextButton, targetIndex);
 })
 
 // when I click right, move slides to the right
 nextButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
+    const currentDot = carouselNav.querySelector('.current-indicator');
     const nextSlide = currentSlide.nextElementSibling;
+    const targetIndex = slides.findIndex(slide => slide === nextSlide);
+    const targetDot = dots[targetIndex]
+    
     // move to the next slide
     moveToSlide(track, currentSlide, nextSlide);
+
+    // update dot in nav
+    moveToDot(currentDot, targetDot);
+
+    arrowVisibility(slides, prevButton, nextButton, targetIndex);
+
 })
 
 // when I click the nav indicators, move to that slide
@@ -56,18 +78,13 @@ carouselNav.addEventListener('click', e => {
     
     // if no button is clicked, return nothing
     if (!targetDot) return;
-    
-    // else, store current slide and current dot in variables
-    const currentSlide = track.querySelector('.current-slide');
-    console.log(currentSlide);
+
+    // change color of current corresponding dot to indicate which slide we are on
     const currentDot = carouselNav.querySelector('.current-indicator');
-    console.log(currentDot);
+    const currentSlide = track.querySelector('.current-slide');
     const targetIndex = dots.findIndex(dot => dot === targetDot);
     const targetSlide = slides[targetIndex];
-
-    // move to slide based on which dot is clicked
-    moveToSlide(track, currentSlide, targetSlide);
-    moveToDot(slides, currentDot, targetDot);
-    // change color of current corresponding dot to indicate which slide we are on
-
+    
+    moveToSlide(track, currentSlide, targetSlide)
+    moveToDot(currentDot, targetDot);
 })
