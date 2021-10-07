@@ -75,7 +75,7 @@ nextButton.addEventListener('click', e => {
 
 // when indicator is clicked, move to that slide
 carouselNav.addEventListener('click', e => {
-    // what indicator was clicked?
+    // determine which dot was clicked
     const targetDot = e.target.closest('button');
     
     // if no button is clicked, return nothing
@@ -89,4 +89,5 @@ carouselNav.addEventListener('click', e => {
     
     moveToSlide(track, currentSlide, targetSlide);
     moveToDot(currentDot, targetDot);
+    arrowVisibility(slides, targetIndex);
 })
