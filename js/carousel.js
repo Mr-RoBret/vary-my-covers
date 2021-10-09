@@ -1,19 +1,27 @@
 const track = document.querySelector('.carousel__track');
 const slides = Array.from(track.children);
-const carouselButtons = document.querySelectorAll('.carousel__button');
+// const carouselButtons = document.querySelectorAll('.carousel__button');
 const carouselNav = document.querySelector('.carousel__nav');
 const dots = Array.from(carouselNav.children);
+const thumbnailNav = document.querySelector('.thumbnail__nav');
+const thumbs = Array.from(thumbnailNav.children);
 const prevButton = document.querySelector('.carousel__button--left');
 const nextButton = document.querySelector('.carousel__button--right');
 
 const slideWidth = slides[0].getBoundingClientRect().width;
 console.log(slideWidth);
+
 // arrange slides next to each other from left to right
 const setSlidePosition = (slide, index) => {
     slide.style.left = slideWidth * index + 'px';
 };
 
 slides.forEach(setSlidePosition);
+
+// add slide images to thumbnails
+const addThumbnailImages = () => {
+    
+}
 
 // function to change visibility of arrow if at either end of slides
 const arrowVisibility = (slides, targetIndex) => {
@@ -43,17 +51,25 @@ const moveToDot = (currentDot, targetDot) => {
     targetDot.classList.add('current-indicator');
 }
 
+const moveToThumb = (currentThumb, targetThumb) => {
+    currentThumb.classList.remove('current-thumb');
+    targetThumb.classList.add('current-thumb');
+}
+
 // when left button is clicked, move slides to left
 prevButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const currentDot = carouselNav.querySelector('.current-indicator');
+    const currentThumb = thumbnailNav.querySelector('.current-thumb');
     const prevSlide = currentSlide.previousElementSibling;
     const targetIndex = slides.findIndex(slide => slide === prevSlide);
     console.log(`target index is currently ${targetIndex}`);
     const targetDot = dots[targetIndex];
+    const targetThumb = thumbs[targetIndex];
     // move to previous slide
     moveToSlide(track, currentSlide, prevSlide);
     moveToDot(currentDot, targetDot);
+    moveToThumb(currentThumb, targetThumb);
     arrowVisibility(slides, targetIndex);
 })
 
@@ -61,14 +77,18 @@ prevButton.addEventListener('click', e => {
 nextButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const currentDot = carouselNav.querySelector('.current-indicator');
+    const currentThumb = thumbnailNav.querySelector('.current-thumb');
     const nextSlide = currentSlide.nextElementSibling;
     const targetIndex = slides.findIndex(slide => slide === nextSlide);
     console.log(`target index is currently ${targetIndex}`);
-    const targetDot = dots[targetIndex]
+    const targetDot = dots[targetIndex];
+    const targetThumb = thumbs[targetIndex];
     // move to the next slide
     moveToSlide(track, currentSlide, nextSlide);
     // update dot in nav
     moveToDot(currentDot, targetDot);
+    // update thumbnail in nav
+    moveToThumb(currentThumb, targetThumb);
     // update arrow visibility depending on targetIndex
     arrowVisibility(slides, targetIndex);
 })
@@ -83,11 +103,32 @@ carouselNav.addEventListener('click', e => {
 
     // change color of current corresponding dot to indicate which slide we are on
     const currentSlide = track.querySelector('.current-slide');
+    const currentThumb = thumbnailNav.querySelector('.current-thumb');
     const currentDot = carouselNav.querySelector('.current-indicator');
     const targetIndex = dots.findIndex(dot => dot === targetDot);
     const targetSlide = slides[targetIndex];
-    
+    const targetThumb = thumbs[targetIndex];
+
     moveToSlide(track, currentSlide, targetSlide);
     moveToDot(currentDot, targetDot);
+    moveToThumb(currentThumb, targetThumb);
+    arrowVisibility(slides, targetIndex);
+})
+
+// when thumbnail is clicked, move to that slide
+thumbnailNav.addEventListener('click', e => {
+    const targetThumb = e.target.closest('button');
+    // if target is not on button, do nothing
+    if (!e.target) {
+        return;
+    // if a button is clicked
+    }
+    const currentSlide = track.querySelector('.current-slide');
+    const currentThumb = thumbnailNav.querySelector('.current-thumb');
+    const targetIndex = thumbs.findIndex(thumb => thumb === targetThumb);
+    const targetSlide = slides[targetIndex];
+
+    moveToSlide(track, currentSlide, targetSlide);
+    moveToThumb(currentThumb, targetThumb);
     arrowVisibility(slides, targetIndex);
 })
