@@ -94,7 +94,7 @@
 }
 
 .thumbnail__nav {
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     width: 800px;
     position: relative;
     display: flex;
