@@ -2,7 +2,7 @@
     /* display: flex; */
     position: relative;
     height: 600px;
-    width: 400px;
+    width: 800px;
     margin: 5em auto;
 }
 
@@ -14,24 +14,42 @@
 .carousel__track-container {
     background: lightcoral;
     height: 100%;
+    width: 400px;
     position: relative;
+    transform: translateX(-50%);
+    left: 50%;
     overflow: hidden;
-
 }
 
 .carousel__track {
-    padding: 0;
-    margin: 0;
+    display: flex;
+    padding: 0px;
+    margin: 0px;
+    background-color: blueviolet;
     list-style: none;
-    position: relative;
+    position: absolute;
     height: 100%;
-    transition: transform 250ms ease-in;
+    width: auto;
+    transition: transform .5s ease-in-out;
+    perspective: 500px;
 }
 
 .carousel__slide {
-    position: absolute; 
     top: 0;
     bottom: 0;
+    /* right: 50%; */
+    /* transform: translateX(50%); */
+    transition: transform .5s ease-in-out;
+    transform-style: preserve-3d;
+}
+
+.carousel__slide--upcoming {
+    transform: rotateY(30deg);
+}
+
+.carousel__slide--outgoing {
+    transform: rotateY(-30deg)
+
 }
 
 .carousel__button {
@@ -45,34 +63,52 @@
 }
 
 .carousel__button--left {
-    left: -60px;
+    left: 100px;
 }
 
 .carousel__button--right {
-    right: -60px;
+    right: 100px;
 }
 
 .carousel__button img {
     width: 40px;
 }
 
-.carousel__nav {
+.thumbnail__nav {
+    /* background-color: cadetblue; */
+    width: 800px;
+    position: relative;
     display: flex;
     justify-content: center;
+    margin-top: 25px;
 }
 
-.carousel__indicator {
-    height: 10px;
-    width: 10px;
-    border: 0;
-    border-radius: 50%;
-    background: rgba(0,0,0,.3);
-    margin: 15px 5px;
+.thumbnail__indicator {
+    height: 120px;
+    width: auto;
+    border: 2px solid darkslategray;
+    margin: 5px 25px;
     cursor: pointer;
+    overflow: hidden;
 }
 
-.carousel__indicator.current-indicator {
-    background: rgba(0,0,0,.75)
+div.thumbnail__nav > button {
+    padding: 0px;
+    display: flex;
+    /* align-content: stretch; */
+}
+
+div.thumbnail__nav > button.thumbnail__indicator > img {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    /* display: block; */
+    /* height: auto; */
+    /* width: 90px; */
+}
+
+.thumbnail__indicator.current-thumb {
+    border: 4px solid lightsalmon;
 }
 
 .carousel__thumbnails-container {
