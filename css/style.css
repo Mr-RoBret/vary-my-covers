@@ -1,3 +1,56 @@
+.app__header {
+    position: relative;
+    height: auto;
+    width: 100%;
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    outline: 2px solid chocolate;
+}
+
+#intro {
+    position: relative;
+    height: 1em;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 4rem;
+    font-style: italic;
+    font-weight: 900;
+    color: darkslategrey;
+    margin: 24px 0px;
+}   
+
+body > div.app__header > p {
+    position: relative;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: chocolate;
+    margin: 12px 0px;
+}
+
+body > div.app__header > h2 {
+    position: relative;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: darkslategrey;
+    margin: 0px;
+}
+
+body > div.app__header > div {
+    position: relative;
+    width: 100%;
+    margin: 18px 0px 0px;
+    background-color: slategray;
+}
+
+body > div.app__header > div > p {
+    position: relative;
+    max-width: 15%;
+    margin: 18px auto;
+}
+
 .carousel {
     /* display: flex; */
     position: relative;
