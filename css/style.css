@@ -1,3 +1,7 @@
+body {
+    background-color: #dbdbdb;
+}
+
 .app__header {
     position: relative;
     height: auto;
@@ -6,6 +10,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* background-color: rgb(212, 172, 135); */
     outline: 2px solid chocolate;
 }
 
@@ -17,16 +22,16 @@
     font-style: italic;
     font-weight: 900;
     color: darkslategrey;
-    margin: 24px 0px;
+    margin: 24px 0px 5px 0px;
 }   
 
 body > div.app__header > p {
     position: relative;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: bold;
     color: chocolate;
-    margin: 12px 0px;
+    margin: 10px 0 12px 0;
 }
 
 body > div.app__header > h2 {
@@ -35,7 +40,7 @@ body > div.app__header > h2 {
     font-size: 1.5rem;
     font-weight: bold;
     color: darkslategrey;
-    margin: 0px;
+    margin: 12px 0px;
 }
 
 body > div.app__header > div {
