@@ -132,19 +132,19 @@ nextButton.addEventListener('click', e => {
 })
 
 // when thumbnail is clicked, move to that slide
-thumbnailNav.addEventListener('click', e => {
-    const targetThumb = e.target.closest('button');
-    // if target is not on button, do nothing
-    if (!e.target) {
-        return;
-    // if a button is clicked
-    }
-    const currentSlide = track.querySelector('.current-slide');
-    // const currentThumb = thumbnailNav.querySelector('.current-thumb');
-    // const targetIndex = thumbs.findIndex(thumb => thumb === targetThumb);
-    // const targetSlide = slides[targetIndex];
+// thumbnailNav.addEventListener('click', e => {
+//     const targetThumb = e.target.closest('button');
+//     // if target is not on button, do nothing
+//     if (!e.target) {
+//         return;
+//     // if a button is clicked
+//     }
+//     const currentSlide = track.querySelector('.current-slide');
+//     // const currentThumb = thumbnailNav.querySelector('.current-thumb');
+//     // const targetIndex = thumbs.findIndex(thumb => thumb === targetThumb);
+//     // const targetSlide = slides[targetIndex];
 
-    moveToSlide(track, currentSlide, targetSlide);
-    // moveToThumb(currentThumb, targetThumb);
-    arrowVisibility(slides, targetIndex);
-})
+//     moveToSlide(track, currentSlide, targetSlide);
+//     // moveToThumb(currentThumb, targetThumb);
+//     arrowVisibility(slides, targetIndex);
+// })
