@@ -1,5 +1,9 @@
+/**
+ * slides still not populating correctly... causing issues at lines 92 and 125 (carousel.js:92 Uncaught TypeError: Cannot read properties of null (reading 'style'))
+ */
+
 const track = document.querySelector('.carousel__track');
-const thumbnailNav = document.querySelector('.thumbnail__nav');
+// const thumbnailNav = document.querySelector('.thumbnail__nav');
 const prevButton = document.querySelector('.carousel__button--left');
 const nextButton = document.querySelector('.carousel__button--right');
 const slides = [];
@@ -21,24 +25,20 @@ const setSlideClass = (newItem) => {
     console.log(newItem);
 } 
 
-
 // populate slides with images (from inputFiles array)!
 const viewFiles = () => {
     const preview = document.querySelector('.carousel__track');
     console.log(preview); // print carousel__track
     const files = document.querySelector('input[type=file]').files;
-    // console.log(files);
-    // const slides = Array.from(files);
-    // console.log(typeof slides);
 
     const readAndLoadImages = (file) => {
-
         if ( /\.(png|jpe?g)$/i.test(file.name)) {
-            
             const reader = new FileReader();
+
             // create an li element to add to ul (preview, aka 'carousel__slide')
             let newItem = document.createElement('li');
 
+            // listen for loaded images
             reader.addEventListener('load', () => {
                 let image = new Image();
                 image.classList.add('carousel__image')
@@ -65,9 +65,11 @@ const viewFiles = () => {
     }
 
     // const thumbs = Array.from(thumbnailNav.children);
+
     // const inputElement = document.getElementById('imgInput');
     const slideWidth = slides[0].getBoundingClientRect().width;
     console.log(slideWidth);
+
     // for each slide, set slide position using function
     slides.forEach(setSlidePosition);
 }
@@ -102,11 +104,12 @@ const moveToThumb = (currentThumb, targetThumb) => {
 // when left button is clicked, move slides to left
 prevButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
-    // const currentThumb = thumbnailNav.querySelector('.current-thumb');
     const prevSlide = currentSlide.previousElementSibling;
     const targetIndex = slides.findIndex(slide => slide === prevSlide);
     console.log(`target index is currently ${targetIndex}`);
+    // const currentThumb = thumbnailNav.querySelector('.current-thumb');
     // const targetThumb = thumbs[targetIndex];
+
     // move to previous slide
     moveToSlide(track, currentSlide, prevSlide);
     // moveToThumb(currentThumb, targetThumb);
@@ -116,17 +119,15 @@ prevButton.addEventListener('click', e => {
 // when right button is clicked, move slides to right
 nextButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
-    // const currentThumb = thumbnailNav.querySelector('.current-thumb');
     const nextSlide = currentSlide.nextElementSibling;
     const targetIndex = slides.findIndex(slide => slide === nextSlide);
     console.log(`target index is currently ${targetIndex}`);
+    // const currentThumb = thumbnailNav.querySelector('.current-thumb');
     // const targetThumb = thumbs[targetIndex];
+
     // move to the next slide
     moveToSlide(track, currentSlide, nextSlide);
-    // update dot in nav
-    // update thumbnail in nav
     // moveToThumb(currentThumb, targetThumb);
-    // update arrow visibility depending on targetIndex
     arrowVisibility(slides, targetIndex);
 })
 
