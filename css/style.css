@@ -25,7 +25,7 @@ body {
     margin: 24px 0px 5px 0px;
 }   
 
-body > div.app__header > p {
+div.app__header > p {
     position: relative;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 1.15rem;
@@ -34,7 +34,7 @@ body > div.app__header > p {
     margin: 10px 0 12px 0;
 }
 
-body > div.app__header > h2 {
+div.app__header > h2 {
     position: relative;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 1.5rem;
@@ -43,17 +43,38 @@ body > div.app__header > h2 {
     margin: 12px 0px;
 }
 
-body > div.app__header > div {
+div.app__header > div {
     position: relative;
+    display: flex;
     width: 100%;
-    margin: 18px 0px 0px;
+    margin: 18px 0 0 0;
+    padding: 0px auto;
     background-color: slategray;
+    flex-direction: column;
+    align-items: center
 }
 
-body > div.app__header > div > p {
+div.app__header > div > p.user__input-choose > input {
+    max-width: auto;
+    padding-left: 65px;
+}
+
+div.app__header > div > p.user__input-choose {
     position: relative;
-    max-width: 15%;
+    /* max-width: 15%; */
     margin: 18px auto;
+}
+
+div.app__header > div > p:nth-child(2) {
+    /* max-width: 15%; */
+    margin: 10px auto 18px auto;
+}
+
+div.app__header > div > p:nth-child(2) > #submit {
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-width: 0px;
+    /* justify-self: center; */
 }
 
 .carousel {
@@ -135,10 +156,10 @@ body > div.app__header > div > p {
 .thumbnail__nav {
     /* background-color: cadetblue; */
     width: 800px;
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: center;
-    margin-top: 25px;
+    margin: 25px 0;
 }
 
 .thumbnail__indicator {
@@ -153,16 +174,12 @@ body > div.app__header > div > p {
 div.thumbnail__nav > button {
     padding: 0px;
     display: flex;
-    /* align-content: stretch; */
 }
 
 div.thumbnail__nav > button.thumbnail__indicator > img {
     position: relative;
     max-width: 100%;
     max-height: 100%;
-    /* display: block; */
-    /* height: auto; */
-    /* width: 90px; */
 }
 
 .thumbnail__indicator.current-thumb {
@@ -172,7 +189,7 @@ div.thumbnail__nav > button.thumbnail__indicator > img {
 .carousel__thumbnails-container {
     width: 75%;
     margin: 0 auto;
-    /*position: relative;*/
+    position: relative;
 }
 
 .carousel__thumbnails {
@@ -198,6 +215,15 @@ div.thumbnail__nav > button.thumbnail__indicator > img {
 
 .carousel__thumbnails-container > ul {
     padding-left: 0px;
+}
+
+.app__footer {
+    height: 100px;
+    width: 100%;
+    margin: 35px 0 5px 0;
+    /* display: flex; */
+    flex-direction: column;
+    /* outline: 2px solid chocolate; */
 }
 
 .is-hidden {

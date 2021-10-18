@@ -20,10 +20,13 @@
         </h2>
         <div class="user__input">
             <p class="user__input-choose">
-                <input formaction="js/carousel.js" type="file" alt="choose files" multiple>
+                <input type="file" id="imgInput" accept="image/png, image/jpeg" alt="" onChange="viewFiles()" multiple>
+                <!-- <img src="" height=600 alt="Loaded image..."> -->
+            </p>
+            <p>
+                <button type="button" id="submit">Submit!</button>
             </p>
         </div>
-        
     </div>
     <div class="carousel">
         <button class="carousel__button carousel__button--left is-hidden">
@@ -32,7 +35,7 @@
 
         <div class="carousel__track-container">
             <ul class="carousel__track">
-                <li class="carousel__slide current-slide">
+                <!-- <li class="carousel__slide current-slide">
                     <img class="carousel__image" src="img/slide-1.jpeg" alt="cover1">
                 </li>
                 <li class="carousel__slide">
@@ -40,7 +43,7 @@
                 </li>
                 <li class="carousel__slide">
                     <img class="carousel__image" src="img/slide-3.jpeg" alt="cover3">
-                </li>
+                </li> -->
             </ul>
         </div>
 
@@ -49,13 +52,17 @@
         </button>
 
         <div class="thumbnail__nav">
-            <button class="thumbnail__indicator current-thumb">
+            <!-- <button class="thumbnail__indicator current-thumb">
                 <img src="img/slide-1.jpeg" alt="">
             </button>
             <button class="thumbnail__indicator"></button>
-            <button class="thumbnail__indicator"></button>
+            <button class="thumbnail__indicator"></button> -->
         </div>
     </div>
+    <div class="app__footer">
+        <p></p>
+    </div>
+    
     <script src="js/carousel.js"></script>
 </body>
 </html>
