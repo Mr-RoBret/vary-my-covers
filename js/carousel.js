@@ -10,13 +10,16 @@ const slides = [];
 
 // arrange slides next to each other from left to right
 const setSlidePosition = (slide, index) => {
-    console.log(slideWidth, index);
+    console.log(`the slide is ${slide.title}`);
+    console.log(`slide width is currently ${slideWidth}`);
     slide.style.left = slideWidth * index + 'px';
 };
 
 const setSlideClass = (newItem) => {
-    console.log(`Item's previous Element sibling is ${newItem.previousElementSibling}`);
+    // console.log(`Item's previous Element sibling is ${newItem.previousElementSibling}`);
     // if newItem has previousSibling
+    // newItem.previousElementSibling()
+    
     if (newItem.previousElementSibling === null) {
         newItem.classList.add('carousel__slide', 'current-slide');
     } else {
@@ -27,15 +30,17 @@ const setSlideClass = (newItem) => {
 
 // populate slides with images (from inputFiles array)!
 const viewFiles = () => {
-    const preview = document.querySelector('.carousel__track');
-    console.log(preview); // print carousel__track
+    // const preview = document.querySelector('.carousel__track');
+    // console.log(document.querySelector('.carousel__track')); // print carousel__track
     const files = document.querySelector('input[type=file]').files;
 
     const readAndLoadImages = (file) => {
         if ( /\.(png|jpe?g)$/i.test(file.name)) {
+
+            // create reader for files
             const reader = new FileReader();
 
-            // create an li element to add to ul (preview, aka 'carousel__slide')
+            // create an li element to add to 'carousel__slide' ul)
             let newItem = document.createElement('li');
 
             // listen for loaded images
@@ -44,34 +49,32 @@ const viewFiles = () => {
                 image.classList.add('carousel__image')
                 image.src = reader.result;
                 image.style.left = 0;
-                image.height = 600;
+                // image.height = 600;
                 image.title = file.name;
                 
-                // add appropriate classes to new image slide
-                setSlideClass(newItem);
+                // append image of appropriate class to preview ('carousel__slide')
+                document.querySelector('.carousel__track').appendChild(newItem);
                 // add the image to the li as a child and add class 'carousel__image'
                 newItem.appendChild(image);
-                // append image of appropriate class to preview ('carousel__slide')
-                preview.appendChild(newItem);
-            }, false);
+                // add appropriate classes to new image slide
+                setSlideClass(newItem);
+               
+                slides.push(image); //file may not be the correct thing to push in -- also, moved this up into eventListener
+                console.log(`slides is currently: ${slides}`);
 
+            }, false);
+            // slides.push(image) was here
             reader.readAsDataURL(file);
-            slides.push(file);
         }
+
     }
-    
     if (files) {
         [].forEach.call(files, readAndLoadImages);
     }
-
-    // const thumbs = Array.from(thumbnailNav.children);
-
-    // const inputElement = document.getElementById('imgInput');
-    const slideWidth = slides[0].getBoundingClientRect().width;
-    console.log(slideWidth);
-
     // for each slide, set slide position using function
     slides.forEach(setSlidePosition);
+        
+    // const thumbs = Array.from(thumbnailNav.children);
 }
 
 // function to change visibility of arrow if at either end of slides
