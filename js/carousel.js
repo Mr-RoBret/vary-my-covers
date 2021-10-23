@@ -59,27 +59,28 @@ const viewFiles = () => {
                 // add appropriate classes to new image slide
                 setSlideClass(newItem);
                
-                slides.push(image); //file may not be the correct thing to push in -- also, moved this up into eventListener
+                slides.push(newItem); //file may not be the correct thing to push in -- also, moved this up into eventListener
                 console.log(`slides is currently: ${slides}`);
 
             }, false);
             // slides.push(image) was here
             reader.readAsDataURL(file);
         }
-
+        console.log(slides);
     }
     if (files) {
         [].forEach.call(files, readAndLoadImages);
+        
     }
     // for each slide, set slide position using function
     slides.forEach(setSlidePosition);
         
     // const thumbs = Array.from(thumbnailNav.children);
 }
+// console.log(`outside of viewImages, the slides array is ${slides}`);
 
 // function to change visibility of arrow if at either end of slides
 const arrowVisibility = (slides, targetIndex) => {
-    console.log(`targetIndex is currently ${targetIndex}`);
     if (targetIndex === 0) {
         prevButton.classList.add('is-hidden');
         nextButton.classList.remove('is-hidden');
