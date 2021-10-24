@@ -93,7 +93,7 @@ div.app__header > div > p:nth-child(2) > #submit {
 .carousel__track-container {
     background: lightcoral;
     height: 100%;
-    width: 400px;
+    width: 800px;
     position: relative;
     transform: translateX(-50%);
     left: 50%;
@@ -101,7 +101,7 @@ div.app__header > div > p:nth-child(2) > #submit {
 }
 
 .carousel__track {
-    display: flex;
+    /* display: flex; */
     padding: 0px;
     margin: 0px;
     background-color: blueviolet;

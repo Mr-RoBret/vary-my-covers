@@ -8,21 +8,35 @@ const prevButton = document.querySelector('.carousel__button--left');
 const nextButton = document.querySelector('.carousel__button--right');
 const slides = [];
 
-// assign slide classes and position them side by side
-const setSlideClass = (slides, newItem, itemIndex) => {
-    const currentSlide = slides[itemIndex];
-    console.log(`slides is ${slides} and current slide is ${currentSlide}`);
-    const slideInfo = currentSlide.getBoundingClientRect();
-    console.log(slideInfo);
+// calculate slide position and width
+const setSlidePosition = (image, newItem) => {
+    // const currentSlide = slides[itemIndex];
+    const slideInfo = image.getBoundingClientRect();
     const slideWidth = slideInfo.width;
-    console.log(`itemIndex is ${itemIndex} and slides[itemIndex] is ${slides[itemIndex]} and slideWidth is ${slideWidth}`);
-    newItem.style.left = slideWidth * itemIndex + 'px';
+    console.log(`slideWidth (image.getBoundingClientRect().width) is ${slideWidth}`);
+    // const slideWidth = image.width;
+    // newItem.style.left = slideWidth + prevItemWidth + 'px';
+
+    if (newItem.previousElementSibling === null) {
+        newItem.style.left = 0;
+    } else {
+        let prevItem = newItem.previousElementSibling;
+        let prevItemInfo = prevItem.getBoundingClientRect();
+        let prevItemWidth = prevItemInfo.width;
+        newItem.style.left = slideWidth + prevItemWidth + 'px';
+    }
+}
+
+// assign slide classes and position them side by side
+const setSlideClass = (slides, image, newItem, itemIndex) => {
 
     if (newItem.previousElementSibling === null) {
         newItem.classList.add('carousel__slide', 'current-slide');
     } else {
         newItem.classList.add('carousel__slide');
     }
+    console.log(`set slide position is ready for image ${image} of new item ${newItem}`);
+    setSlidePosition(image, newItem);
 } 
 
 // populate slides with images (from inputFiles array)!
@@ -44,11 +58,16 @@ const viewFiles = () => {
                 let image = new Image();
                 image.classList.add('carousel__image')
                 image.src = reader.result;
-                // image.height = 600;
+                image.style.width = 600;
+                image.style.height = 'auto';
+                let imageHeight = image.style.height;
                 image.title = file.name;
-                let imageWidth = image.width;
-                console.log(`image width is ${imageWidth}`);
+                // let imageWidth = image.width;
+                // console.log(`image width is ${imageWidth}`);
                 
+                newItem.style.width = 600;
+                newItem.style.height = imageHeight;
+
                 // append image of appropriate class to preview ('carousel__slide')
                 document.querySelector('.carousel__track').appendChild(newItem);
 
@@ -61,7 +80,7 @@ const viewFiles = () => {
                 
                 // add appropriate classes to new image slide
                 // setSlideClass(newItem, slideWidth, slides.indexOf(newItem));
-                setSlideClass(slides, newItem, slides.indexOf(newItem));
+                setSlideClass(slides, image, newItem, slides.indexOf(newItem));
                 
             }, false);
             reader.readAsDataURL(file);
@@ -73,7 +92,7 @@ const viewFiles = () => {
     // if (files) {
     [].forEach.call(files, readAndLoadImages);
     // }   
-    
+    // track.style.display = 'flex';
     // const thumbs = Array.from(thumbnailNav.children);
 }
 
