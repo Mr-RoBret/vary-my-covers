@@ -81,7 +81,7 @@ div.app__header > div > p:nth-child(2) > #submit {
     /* display: flex; */
     position: relative;
     height: 600px;
-    width: 800px;
+    width: auto;
     margin: 5em auto;
 }
 
@@ -110,25 +110,12 @@ div.app__header > div > p:nth-child(2) > #submit {
     height: 100%;
     width: auto;
     transition: transform .5s ease-in-out;
-    perspective: 500px;
 }
 
 .carousel__slide {
     top: 0;
     bottom: 0;
-    /* right: 50%; */
-    /* transform: translateX(50%); */
     transition: transform .5s ease-in-out;
-    transform-style: preserve-3d;
-}
-
-.carousel__slide--upcoming {
-    transform: rotateY(30deg);
-}
-
-.carousel__slide--outgoing {
-    transform: rotateY(-30deg)
-
 }
 
 .carousel__button {
