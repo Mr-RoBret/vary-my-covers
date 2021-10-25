@@ -78,22 +78,22 @@ div.app__header > div > p:nth-child(2) > #submit {
 }
 
 .carousel {
-    /* display: flex; */
+    display: flex;
     position: relative;
-    height: 600px;
+    height: auto;
     width: auto;
     margin: 5em auto;
 }
 
 .carousel__image {
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: auto;
 }
 
 .carousel__track-container {
     background: lightcoral;
-    height: 100%;
-    width: 800px;
+    height: 600px;
+    width: 400px;
     position: relative;
     transform: translateX(-50%);
     left: 50%;
@@ -101,7 +101,8 @@ div.app__header > div > p:nth-child(2) > #submit {
 }
 
 .carousel__track {
-    /* display: flex; */
+    display: flex;
+    flex-direction: row;
     padding: 0px;
     margin: 0px;
     background-color: blueviolet;
@@ -115,6 +116,8 @@ div.app__header > div > p:nth-child(2) > #submit {
 .carousel__slide {
     top: 0;
     bottom: 0;
+    width: 100%;
+    height: auto;
     transition: transform .5s ease-in-out;
 }
 

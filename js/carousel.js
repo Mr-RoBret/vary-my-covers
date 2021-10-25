@@ -1,5 +1,6 @@
 /**
- * slides still not populating correctly... causing issues at lines 92 and 125 (carousel.js:92 Uncaught TypeError: Cannot read properties of null (reading 'style'))
+ * Program that takes a user input of multiple images and loads them as previews into a
+ * a scrollable carousel.
  */
 
 const track = document.querySelector('.carousel__track');
@@ -12,23 +13,24 @@ const slides = [];
 const setSlidePosition = (image, newItem) => {
     // const currentSlide = slides[itemIndex];
     const slideInfo = image.getBoundingClientRect();
+    console.log(`slide info is ${slideInfo}`);
     const slideWidth = slideInfo.width;
     console.log(`slideWidth (image.getBoundingClientRect().width) is ${slideWidth}`);
-    // const slideWidth = image.width;
-    // newItem.style.left = slideWidth + prevItemWidth + 'px';
 
     if (newItem.previousElementSibling === null) {
         newItem.style.left = 0;
     } else {
         let prevItem = newItem.previousElementSibling;
         let prevItemInfo = prevItem.getBoundingClientRect();
-        let prevItemWidth = prevItemInfo.width;
+        let prevItemWidth = prevItemInfo.left;
+        console.log(`prevItemWidth is ${prevItemWidth}px`);
+        console.log(`slideWidth is ${slideWidth}px`)
         newItem.style.left = slideWidth + prevItemWidth + 'px';
     }
 }
 
-// assign slide classes and position them side by side
-const setSlideClass = (slides, image, newItem, itemIndex) => {
+// assign slide classes
+const setSlideClass = (image, newItem) => {
 
     if (newItem.previousElementSibling === null) {
         newItem.classList.add('carousel__slide', 'current-slide');
@@ -38,6 +40,30 @@ const setSlideClass = (slides, image, newItem, itemIndex) => {
     console.log(`set slide position is ready for image ${image} of new item ${newItem}`);
     setSlidePosition(image, newItem);
 } 
+
+// resize image
+const resizeImage = (image, newItem) => {
+    if (image.naturalWidth > 400) {
+        image.style.width = 400;
+        image.style.height = '100%';
+        newItem.style.width = 400;
+        newItem.style.height = 'auto'
+    } else {
+        image.style.width = '100%';
+        newItem.style.width = '100%';
+        image.style.height = 'auto';
+        newItem.style.width = 'auto';
+    }
+}
+
+const getTrackWidth = (slides) => {
+    let trackWidth = 0;
+    for (let i = 0; i < slides.length-1; i++) {
+        console.log(slides[i].width);
+        trackWidth += slides[i].width;
+    }
+    console.log(`trackWidth is now ${trackWidth}`);
+}
 
 // populate slides with images (from inputFiles array)!
 const viewFiles = () => {
@@ -58,15 +84,9 @@ const viewFiles = () => {
                 let image = new Image();
                 image.classList.add('carousel__image')
                 image.src = reader.result;
-                image.style.width = 600;
-                image.style.height = 'auto';
-                let imageHeight = image.style.height;
                 image.title = file.name;
-                // let imageWidth = image.width;
-                // console.log(`image width is ${imageWidth}`);
-                
-                newItem.style.width = 600;
-                newItem.style.height = imageHeight;
+
+                resizeImage(image, newItem);
 
                 // append image of appropriate class to preview ('carousel__slide')
                 document.querySelector('.carousel__track').appendChild(newItem);
@@ -79,8 +99,7 @@ const viewFiles = () => {
                 console.log(`slides is currently: ${slides}`);
                 
                 // add appropriate classes to new image slide
-                // setSlideClass(newItem, slideWidth, slides.indexOf(newItem));
-                setSlideClass(slides, image, newItem, slides.indexOf(newItem));
+                setSlideClass(image, newItem);
                 
             }, false);
             reader.readAsDataURL(file);
@@ -88,6 +107,7 @@ const viewFiles = () => {
         
         }
         console.log(slides);
+        getTrackWidth(slides);
     }
     // if (files) {
     [].forEach.call(files, readAndLoadImages);
@@ -95,6 +115,7 @@ const viewFiles = () => {
     // track.style.display = 'flex';
     // const thumbs = Array.from(thumbnailNav.children);
 }
+// track.style.display = 'flex';
 
 // function to change visibility of arrow if at either end of slides
 const arrowVisibility = (slides, targetIndex) => {
