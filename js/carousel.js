@@ -10,7 +10,7 @@ const nextButton = document.querySelector('.carousel__button--right');
 const slides = [];
 
 // calculate slide position and width
-const setSlidePosition = (image, newItem) => {
+const setSlidePosition = (itemIndex, image, newItem) => {
     // const currentSlide = slides[itemIndex];
     const slideInfo = newItem.getBoundingClientRect();
     console.log(`slide info width is ${slideInfo.left}`);
@@ -24,28 +24,31 @@ const setSlidePosition = (image, newItem) => {
         let prevItemInfo = prevItem.getBoundingClientRect();
         let prevItemWidth = prevItemInfo.width;
         console.log(`prevItemWidth is currently ${prevItemWidth}`);
-        newItem.style.left = slideWidth + prevItemWidth + 'px';
+        // newItem.style.left = (slideWidth * itemIndex) + prevItemWidth + 'px';
+        newItem.style.left = prevItemWidth * itemIndex + 'px';
     }
 }
 
 // assign slide classes
 const setSlideClass = (image, newItem) => {
-
+    console.log(`newItem is ${newItem}`);
+    let itemIndex = slides.findIndex(slide => slide === newItem);
+    console.log(`itemIndex is now ${itemIndex}`);
     if (newItem.previousElementSibling === null) {
         newItem.classList.add('carousel__slide', 'current-slide');
     } else {
         newItem.classList.add('carousel__slide');
     }
     console.log(`set slide position is ready for image ${image} of new item ${newItem}`);
-    setSlidePosition(image, newItem);
+    setSlidePosition(itemIndex, image, newItem);
 } 
 
 // resize image
 const resizeImage = (image, newItem) => {
-    if (image.naturalWidth > 400) {
-        image.style.width = 400;
+    if (image.naturalWidth > 600) {
+        image.style.width = 600;
         image.style.height = '100%';
-        newItem.style.width = 400;
+        newItem.style.width = 600;
         newItem.style.height = 'auto'
     } else {
         image.style.width = '100%';
