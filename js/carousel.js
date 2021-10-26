@@ -10,37 +10,32 @@ const nextButton = document.querySelector('.carousel__button--right');
 const slides = [];
 
 // calculate slide position and width
-const setSlidePosition = (itemIndex, image, newItem) => {
+const setSlidePosition = (itemIndex, newItem) => {
     // const currentSlide = slides[itemIndex];
     const slideInfo = newItem.getBoundingClientRect();
-    console.log(`slide info width is ${slideInfo.left}`);
-    const slideWidth = slideInfo.left;
-    console.log(`slideWidth (image.getBoundingClientRect().width) is ${slideWidth}`);
+    // const slideWidth = slideInfo.left;
 
     if (newItem.previousElementSibling === null) {
         newItem.style.left = 0;
     } else {
-        let prevItem = newItem.previousElementSibling;
-        let prevItemInfo = prevItem.getBoundingClientRect();
-        let prevItemWidth = prevItemInfo.width;
-        console.log(`prevItemWidth is currently ${prevItemWidth}`);
+        // let prevItem = newItem.previousElementSibling;
+        // let prevItemInfo = prevItem.getBoundingClientRect();
+        // let prevItemWidth = prevItemInfo.width;
+        // console.log(`prevItemWidth is currently ${prevItemWidth}`);
         // newItem.style.left = (slideWidth * itemIndex) + prevItemWidth + 'px';
-        newItem.style.left = prevItemWidth * itemIndex + 'px';
+        newItem.style.left = 600 * itemIndex + 'px';
     }
 }
 
 // assign slide classes
 const setSlideClass = (image, newItem) => {
-    console.log(`newItem is ${newItem}`);
     let itemIndex = slides.findIndex(slide => slide === newItem);
-    console.log(`itemIndex is now ${itemIndex}`);
     if (newItem.previousElementSibling === null) {
         newItem.classList.add('carousel__slide', 'current-slide');
     } else {
         newItem.classList.add('carousel__slide');
     }
-    console.log(`set slide position is ready for image ${image} of new item ${newItem}`);
-    setSlidePosition(itemIndex, image, newItem);
+    setSlidePosition(itemIndex, newItem);
 } 
 
 // resize image
@@ -51,10 +46,10 @@ const resizeImage = (image, newItem) => {
         newItem.style.width = 600;
         newItem.style.height = 'auto'
     } else {
-        image.style.width = '100%';
         newItem.style.width = '100%';
+        image.style.width = '100%';
+        newItem.style.height = 'auto';
         image.style.height = 'auto';
-        newItem.style.width = 'auto';
     }
 }
 
@@ -70,6 +65,7 @@ const resizeImage = (image, newItem) => {
 // populate slides with images (from inputFiles array)!
 const viewFiles = () => {
     
+    // const files = '';
     const files = document.querySelector('input[type=file]').files;
 
     const readAndLoadImages = (file) => {
@@ -95,10 +91,8 @@ const viewFiles = () => {
 
                 // add the image to the li as a child and add class 'carousel__image'
                 newItem.appendChild(image);
-            //  const slideWidth = newItem.getBoundingClientRect().width;
 
                 slides.push(newItem); 
-                console.log(`slides is currently: ${slides}`);
                 
                 // add appropriate classes to new image slide
                 setSlideClass(image, newItem);
@@ -108,13 +102,12 @@ const viewFiles = () => {
 
         
         }
-        console.log(slides);
         // getTrackWidth(slides);
     }
     // if (files) {
     [].forEach.call(files, readAndLoadImages);
     // }   
-    // track.style.display = 'flex';
+    
     // const thumbs = Array.from(thumbnailNav.children);
 }
 // track.style.display = 'flex';
@@ -135,7 +128,6 @@ const arrowVisibility = (slides, targetIndex) => {
 
 //  update slide based on clicked button (left or right)
 const moveToSlide = (track, currentSlide, targetSlide) => {
-    // console.log(`targetSlide.getBoundingClientRect().width is ${targetSlide.getBoundingClientRect().width}`);
     track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
     currentSlide.classList.remove('current-slide');
     targetSlide.classList.add('current-slide');   
@@ -151,7 +143,6 @@ prevButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const prevSlide = currentSlide.previousElementSibling;
     const targetIndex = slides.findIndex(slide => slide === prevSlide);
-    console.log(`target index is currently ${targetIndex}`);
     // const currentThumb = thumbnailNav.querySelector('.current-thumb');
     // const targetThumb = thumbs[targetIndex];
 
@@ -166,7 +157,6 @@ nextButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const nextSlide = currentSlide.nextElementSibling;
     const targetIndex = slides.findIndex(slide => slide === nextSlide);
-    console.log(`target index is currently ${targetIndex}`);
     // const currentThumb = thumbnailNav.querySelector('.current-thumb');
     // const targetThumb = thumbs[targetIndex];
 
