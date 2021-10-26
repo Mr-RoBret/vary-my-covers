@@ -12,9 +12,9 @@ const slides = [];
 // calculate slide position and width
 const setSlidePosition = (image, newItem) => {
     // const currentSlide = slides[itemIndex];
-    const slideInfo = image.getBoundingClientRect();
-    console.log(`slide info is ${slideInfo}`);
-    const slideWidth = slideInfo.width;
+    const slideInfo = newItem.getBoundingClientRect();
+    console.log(`slide info width is ${slideInfo.left}`);
+    const slideWidth = slideInfo.left;
     console.log(`slideWidth (image.getBoundingClientRect().width) is ${slideWidth}`);
 
     if (newItem.previousElementSibling === null) {
@@ -22,9 +22,8 @@ const setSlidePosition = (image, newItem) => {
     } else {
         let prevItem = newItem.previousElementSibling;
         let prevItemInfo = prevItem.getBoundingClientRect();
-        let prevItemWidth = prevItemInfo.left;
-        console.log(`prevItemWidth is ${prevItemWidth}px`);
-        console.log(`slideWidth is ${slideWidth}px`)
+        let prevItemWidth = prevItemInfo.width;
+        console.log(`prevItemWidth is currently ${prevItemWidth}`);
         newItem.style.left = slideWidth + prevItemWidth + 'px';
     }
 }
@@ -56,14 +55,14 @@ const resizeImage = (image, newItem) => {
     }
 }
 
-const getTrackWidth = (slides) => {
-    let trackWidth = 0;
-    for (let i = 0; i < slides.length-1; i++) {
-        console.log(slides[i].width);
-        trackWidth += slides[i].width;
-    }
-    console.log(`trackWidth is now ${trackWidth}`);
-}
+// const getTrackWidth = (slides) => {
+//     let trackWidth = 0;
+//     for (let i = 0; i < slides.length-1; i++) {
+//         console.log(slides[i].width);
+//         trackWidth += slides[i].width;
+//     }
+//     console.log(`trackWidth is now ${trackWidth}`);
+// }
 
 // populate slides with images (from inputFiles array)!
 const viewFiles = () => {
@@ -107,7 +106,7 @@ const viewFiles = () => {
         
         }
         console.log(slides);
-        getTrackWidth(slides);
+        // getTrackWidth(slides);
     }
     // if (files) {
     [].forEach.call(files, readAndLoadImages);
@@ -133,6 +132,7 @@ const arrowVisibility = (slides, targetIndex) => {
 
 //  update slide based on clicked button (left or right)
 const moveToSlide = (track, currentSlide, targetSlide) => {
+    // console.log(`targetSlide.getBoundingClientRect().width is ${targetSlide.getBoundingClientRect().width}`);
     track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
     currentSlide.classList.remove('current-slide');
     targetSlide.classList.add('current-slide');   

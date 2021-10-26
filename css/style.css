@@ -92,8 +92,8 @@ div.app__header > div > p:nth-child(2) > #submit {
 
 .carousel__track-container {
     /* background: lightcoral; */
-    height: 600px;
-    width: 400px;
+    height: 900px;
+    width: 600px;
     position: relative;
     transform: translateX(-50%);
     left: 50%;
@@ -101,16 +101,14 @@ div.app__header > div > p:nth-child(2) > #submit {
 }
 
 .carousel__track {
-    /* display: flex; */
-    /* flex-direction: row; */
-    white-space: nowrap;
-    padding: 0px;
-    margin: 0px;
     /* background-color: blueviolet; */
-    list-style: none;
     position: absolute;
     height: 100%;
     width: auto;
+    padding: 0px;
+    margin: 0px;
+    white-space: nowrap;
+    list-style: none;
     transition: transform .5s ease-in-out;
 }
 
