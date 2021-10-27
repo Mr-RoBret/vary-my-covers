@@ -93,6 +93,7 @@ div.app__header > div > p:nth-child(2) > #submit {
 
 .carousel__track-container {
     /* background: lightcoral; */
+    display: flex;
     height: 450px;
     width: 450px;
     position: relative;
@@ -115,7 +116,7 @@ div.app__header > div > p:nth-child(2) > #submit {
 
 .carousel__slide {
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
     top: 0;
     bottom: 0;
     width: auto;

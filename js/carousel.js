@@ -36,7 +36,7 @@ const setSlideClass = (image, newItem) => {
 
 const setThumbClass = (newThumb) => {
     if (newThumb.previousElementSibling === null) {
-        newThumb.classList.add('current-thumb');
+        newThumb.classList.add('thumbnail__indicator', 'current-thumb');
     } else {
         newThumb.classList.add('thumbnail__indicator');
     }
@@ -100,7 +100,7 @@ const viewFiles = () => {
                 thumbs.push(newThumb);
                 // add appropriate classes to new image slide
                 setSlideClass(image, newItem);
-                setThumbClass(thumbImage, newThumb);
+                setThumbClass(newThumb);
 
             }, false);
             reader.readAsDataURL(file);
