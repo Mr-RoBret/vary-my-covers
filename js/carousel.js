@@ -37,8 +37,8 @@ const setSlideClass = (image, newItem) => {
 const setThumbClass = (newThumb) => {
     if (newThumb.previousElementSibling === null) {
         newThumb.classList.add('current-thumb');
-    // } else {
-    //     newThumb.classList.add('thumbnail__indicator');
+    } else {
+        newThumb.classList.add('thumbnail__indicator');
     }
 }
 
