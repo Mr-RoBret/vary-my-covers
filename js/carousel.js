@@ -4,7 +4,7 @@
  */
 
 const track = document.querySelector('.carousel__track');
-// const thumbnailNav = document.querySelector('.thumbnail__nav');
+const thumbnailNav = document.querySelector('.thumbnail__nav');
 const prevButton = document.querySelector('.carousel__button--left');
 const nextButton = document.querySelector('.carousel__button--right');
 const slides = [];
@@ -14,16 +14,10 @@ const setSlidePosition = (itemIndex, newItem) => {
     // const currentSlide = slides[itemIndex];
     const slideInfo = newItem.getBoundingClientRect();
     // const slideWidth = slideInfo.left;
-
     if (newItem.previousElementSibling === null) {
         newItem.style.left = 0;
     } else {
-        // let prevItem = newItem.previousElementSibling;
-        // let prevItemInfo = prevItem.getBoundingClientRect();
-        // let prevItemWidth = prevItemInfo.width;
-        // console.log(`prevItemWidth is currently ${prevItemWidth}`);
-        // newItem.style.left = (slideWidth * itemIndex) + prevItemWidth + 'px';
-        newItem.style.left = 600 * itemIndex + 'px';
+        newItem.style.left = 450 * itemIndex + 'px';
     }
 }
 
@@ -40,10 +34,10 @@ const setSlideClass = (image, newItem) => {
 
 // resize image
 const resizeImage = (image, newItem) => {
-    if (image.naturalWidth > 600) {
-        image.style.width = 600;
+    if (image.naturalWidth > 450) {
+        image.style.width = 450;
         image.style.height = '100%';
-        newItem.style.width = 600;
+        newItem.style.width = 450;
         newItem.style.height = 'auto'
     } else {
         newItem.style.width = '100%';
@@ -52,15 +46,6 @@ const resizeImage = (image, newItem) => {
         image.style.height = 'auto';
     }
 }
-
-// const getTrackWidth = (slides) => {
-//     let trackWidth = 0;
-//     for (let i = 0; i < slides.length-1; i++) {
-//         console.log(slides[i].width);
-//         trackWidth += slides[i].width;
-//     }
-//     console.log(`trackWidth is now ${trackWidth}`);
-// }
 
 // populate slides with images (from inputFiles array)!
 const viewFiles = () => {
@@ -74,7 +59,7 @@ const viewFiles = () => {
             // create reader for files
             const reader = new FileReader();
 
-            // create an li element to add to 'carousel__slide' ul)
+            // create li element to add to 'carousel__slide' ul
             let newItem = document.createElement('li');
             
             // listen for loaded images
@@ -84,11 +69,10 @@ const viewFiles = () => {
                 image.src = reader.result;
                 image.title = file.name;
 
+                // resize image appropriately
                 resizeImage(image, newItem);
-
                 // append image of appropriate class to preview ('carousel__slide')
                 document.querySelector('.carousel__track').appendChild(newItem);
-
                 // add the image to the li as a child and add class 'carousel__image'
                 newItem.appendChild(image);
 
@@ -107,10 +91,8 @@ const viewFiles = () => {
     // if (files) {
     [].forEach.call(files, readAndLoadImages);
     // }   
-    
-    // const thumbs = Array.from(thumbnailNav.children);
 }
-// track.style.display = 'flex';
+const thumbs = Array.from(thumbnailNav.children);
 
 // function to change visibility of arrow if at either end of slides
 const arrowVisibility = (slides, targetIndex) => {
@@ -133,6 +115,7 @@ const moveToSlide = (track, currentSlide, targetSlide) => {
     targetSlide.classList.add('current-slide');   
 }
 
+// update thumnail 
 const moveToThumb = (currentThumb, targetThumb) => {
     currentThumb.classList.remove('current-thumb');
     targetThumb.classList.add('current-thumb');
@@ -143,12 +126,13 @@ prevButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const prevSlide = currentSlide.previousElementSibling;
     const targetIndex = slides.findIndex(slide => slide === prevSlide);
-    // const currentThumb = thumbnailNav.querySelector('.current-thumb');
-    // const targetThumb = thumbs[targetIndex];
+    // get current and target thumbs
+    const currentThumb = thumbnailNav.querySelector('.current-thumb');
+    const targetThumb = thumbs[targetIndex];
 
     // move to previous slide
     moveToSlide(track, currentSlide, prevSlide);
-    // moveToThumb(currentThumb, targetThumb);
+    moveToThumb(currentThumb, targetThumb);
     arrowVisibility(slides, targetIndex);
 })
 
@@ -157,29 +141,30 @@ nextButton.addEventListener('click', e => {
     const currentSlide = track.querySelector('.current-slide');
     const nextSlide = currentSlide.nextElementSibling;
     const targetIndex = slides.findIndex(slide => slide === nextSlide);
-    // const currentThumb = thumbnailNav.querySelector('.current-thumb');
-    // const targetThumb = thumbs[targetIndex];
+    // get current and target thumbs
+    const currentThumb = thumbnailNav.querySelector('.current-thumb');
+    const targetThumb = thumbs[targetIndex];
 
     // move to the next slide
     moveToSlide(track, currentSlide, nextSlide);
-    // moveToThumb(currentThumb, targetThumb);
+    moveToThumb(currentThumb, targetThumb);
     arrowVisibility(slides, targetIndex);
 })
 
 // when thumbnail is clicked, move to that slide
-// thumbnailNav.addEventListener('click', e => {
-//     const targetThumb = e.target.closest('button');
-//     // if target is not on button, do nothing
-//     if (!e.target) {
-//         return;
-//     // if a button is clicked
-//     }
-//     const currentSlide = track.querySelector('.current-slide');
-//     // const currentThumb = thumbnailNav.querySelector('.current-thumb');
-//     // const targetIndex = thumbs.findIndex(thumb => thumb === targetThumb);
-//     // const targetSlide = slides[targetIndex];
+thumbnailNav.addEventListener('click', e => {
+    const targetThumb = e.target.closest('button');
+    // if target is not on button, do nothing
+    if (!e.target) {
+        return;
+    // if a button is clicked
+    }
+    const currentSlide = track.querySelector('.current-slide');
+    const currentThumb = thumbnailNav.querySelector('.current-thumb');
+    const targetIndex = thumbs.findIndex(thumb => thumb === targetThumb);
+    const targetSlide = slides[targetIndex];
 
-//     moveToSlide(track, currentSlide, targetSlide);
-//     // moveToThumb(currentThumb, targetThumb);
-//     arrowVisibility(slides, targetIndex);
-// })
+    moveToSlide(track, currentSlide, targetSlide);
+    moveToThumb(currentThumb, targetThumb);
+    arrowVisibility(slides, targetIndex);
+})

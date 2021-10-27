@@ -79,8 +79,9 @@ div.app__header > div > p:nth-child(2) > #submit {
 
 .carousel {
     display: flex;
+    flex-direction: column;
     position: relative;
-    height: auto;
+    height: 25%;
     width: auto;
     margin: 5em auto;
 }
@@ -92,8 +93,8 @@ div.app__header > div > p:nth-child(2) > #submit {
 
 .carousel__track-container {
     /* background: lightcoral; */
-    height: 900px;
-    width: 600px;
+    height: 700px;
+    width: 450px;
     position: relative;
     transform: translateX(-50%);
     left: 50%;
@@ -145,12 +146,12 @@ div.app__header > div > p:nth-child(2) > #submit {
 }
 
 .thumbnail__nav {
-    /* background-color: cadetblue; */
+    position: relative;
+    background-color: cadetblue;
     width: 800px;
-    position: absolute;
     display: flex;
     justify-content: center;
-    margin: 25px 0;
+    margin: 25px auto;
 }
 
 .thumbnail__indicator {
@@ -208,13 +209,25 @@ div.thumbnail__nav > button.thumbnail__indicator > img {
     padding-left: 0px;
 }
 
-.app__footer {
+.app__footer-content {
     height: 100px;
     width: 100%;
     margin: 35px 0 5px 0;
     /* display: flex; */
     flex-direction: column;
     /* outline: 2px solid chocolate; */
+}
+
+.app__footer {
+    position: relative;
+    height: auto;
+    width: 100%;
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* background-color: rgb(212, 172, 135); */
+    outline: 2px solid chocolate;
 }
 
 .is-hidden {
