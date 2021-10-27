@@ -83,7 +83,7 @@ div.app__header > div > p:nth-child(2) > #submit {
     position: relative;
     height: 25%;
     width: auto;
-    margin: 5em auto;
+    margin: 5em auto 1em auto;
 }
 
 .carousel__image {
@@ -134,11 +134,11 @@ div.app__header > div > p:nth-child(2) > #submit {
 }
 
 .carousel__button--left {
-    left: 100px;
+    right: 75%;
 }
 
 .carousel__button--right {
-    right: 100px;
+    left: 75%;
 }
 
 .carousel__button img {
@@ -147,31 +147,31 @@ div.app__header > div > p:nth-child(2) > #submit {
 
 .thumbnail__nav {
     position: relative;
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     width: 800px;
     display: flex;
     justify-content: center;
     margin: 25px auto;
 }
 
-.thumbnail__indicator {
-    height: 120px;
-    width: auto;
-    border: 2px solid darkslategray;
-    margin: 5px 25px;
-    cursor: pointer;
-    overflow: hidden;
-}
-
-div.thumbnail__nav > button {
+div.thumbnail__nav > div {
     padding: 0px;
     display: flex;
 }
 
-div.thumbnail__nav > button.thumbnail__indicator > img {
+div.thumbnail__nav > div.thumbnail__indicator > img {
     position: relative;
     max-width: 100%;
     max-height: 100%;
+}
+
+.thumbnail__indicator {
+    height: 120px;
+    width: auto;
+    border: 2px solid darkslategray;
+    margin: 5px 15px;
+    cursor: pointer;
+    overflow: hidden;
 }
 
 .thumbnail__indicator.current-thumb {
@@ -189,24 +189,6 @@ div.thumbnail__nav > button.thumbnail__indicator > img {
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
-}
-
-.thumbnail__box {
-    position: relative;
-    height: 120px;
-    width: 80px;
-    margin: 5px 15px;
-    list-style: none;
-    border: 4px solid black;
-}
-
-.thumbnail__image {
-    height: 120px;
-    width: 80px;
-}
-
-.carousel__thumbnails-container > ul {
-    padding-left: 0px;
 }
 
 .app__footer-content {

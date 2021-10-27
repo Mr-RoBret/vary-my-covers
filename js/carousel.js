@@ -7,7 +7,9 @@ const track = document.querySelector('.carousel__track');
 const thumbnailNav = document.querySelector('.thumbnail__nav');
 const prevButton = document.querySelector('.carousel__button--left');
 const nextButton = document.querySelector('.carousel__button--right');
+nextButton.classList.add('is-hidden');
 const slides = [];
+const thumbs = [];
 
 // calculate slide position and width
 const setSlidePosition = (itemIndex, newItem) => {
@@ -31,6 +33,14 @@ const setSlideClass = (image, newItem) => {
     }
     setSlidePosition(itemIndex, newItem);
 } 
+
+const setThumbClass = (newThumb) => {
+    if (newThumb.previousElementSibling === null) {
+        newThumb.classList.add('current-thumb');
+    // } else {
+    //     newThumb.classList.add('thumbnail__indicator');
+    }
+}
 
 // resize image
 const resizeImage = (image, newItem) => {
@@ -61,26 +71,37 @@ const viewFiles = () => {
 
             // create li element to add to 'carousel__slide' ul
             let newItem = document.createElement('li');
+            let newThumb = document.createElement('div');
             
             // listen for loaded images
             reader.addEventListener('load', () => {
+                nextButton.classList.remove('is-hidden');
                 let image = new Image();
-                image.classList.add('carousel__image')
+                let thumbImage = new Image();
+                image.classList.add('carousel__image');
+                newThumb.classList.add('thumbnail__indicator');
+
                 image.src = reader.result;
+                thumbImage.src = reader.result;
                 image.title = file.name;
+                thumbImage.title = file.name;
 
                 // resize image appropriately
                 resizeImage(image, newItem);
                 // append image of appropriate class to preview ('carousel__slide')
-                document.querySelector('.carousel__track').appendChild(newItem);
+                track.appendChild(newItem);
                 // add the image to the li as a child and add class 'carousel__image'
                 newItem.appendChild(image);
 
+                thumbnailNav.appendChild(newThumb);
+                newThumb.appendChild(thumbImage);
+
                 slides.push(newItem); 
-                
+                thumbs.push(newThumb);
                 // add appropriate classes to new image slide
                 setSlideClass(image, newItem);
-                
+                setThumbClass(thumbImage, newThumb);
+
             }, false);
             reader.readAsDataURL(file);
 
@@ -92,7 +113,7 @@ const viewFiles = () => {
     [].forEach.call(files, readAndLoadImages);
     // }   
 }
-const thumbs = Array.from(thumbnailNav.children);
+// const thumbs = Array.from(thumbnailNav.children);
 
 // function to change visibility of arrow if at either end of slides
 const arrowVisibility = (slides, targetIndex) => {
@@ -115,7 +136,7 @@ const moveToSlide = (track, currentSlide, targetSlide) => {
     targetSlide.classList.add('current-slide');   
 }
 
-// update thumnail 
+// update thumbnail 
 const moveToThumb = (currentThumb, targetThumb) => {
     currentThumb.classList.remove('current-thumb');
     targetThumb.classList.add('current-thumb');
@@ -153,7 +174,7 @@ nextButton.addEventListener('click', e => {
 
 // when thumbnail is clicked, move to that slide
 thumbnailNav.addEventListener('click', e => {
-    const targetThumb = e.target.closest('button');
+    const targetThumb = e.target.closest('div');
     // if target is not on button, do nothing
     if (!e.target) {
         return;
