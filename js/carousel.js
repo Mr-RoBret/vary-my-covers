@@ -113,7 +113,6 @@ const viewFiles = () => {
     [].forEach.call(files, readAndLoadImages);
     // }   
 }
-// const thumbs = Array.from(thumbnailNav.children);
 
 // function to change visibility of arrow if at either end of slides
 const arrowVisibility = (slides, targetIndex) => {
