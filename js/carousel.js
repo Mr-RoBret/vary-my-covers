@@ -85,6 +85,8 @@ const viewFiles = () => {
                 thumbImage.src = reader.result;
                 image.title = file.name;
                 thumbImage.title = file.name;
+                image.setAttribute('alt', 'a')
+                thumbImage.setAttribute('alt', 'b');
 
                 // resize image appropriately
                 resizeImage(image, newItem);
