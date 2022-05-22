@@ -1,5 +1,5 @@
 /**
- * Program that takes a user input of multiple images and loads them as previews into a
+ * Program that takes a user input of multiple images and loads them as previews into
  * a scrollable carousel.
  */
 
@@ -13,9 +13,6 @@ const thumbs = [];
 
 // calculate slide position and width
 const setSlidePosition = (itemIndex, newItem) => {
-    // const currentSlide = slides[itemIndex];
-    const slideInfo = newItem.getBoundingClientRect();
-    // const slideWidth = slideInfo.left;
     if (newItem.previousElementSibling === null) {
         newItem.style.left = 0;
     } else {
@@ -24,7 +21,7 @@ const setSlidePosition = (itemIndex, newItem) => {
 }
 
 // assign slide classes
-const setSlideClass = (image, newItem) => {
+const setSlideClass = (newItem) => {
     let itemIndex = slides.findIndex(slide => slide === newItem);
     if (newItem.previousElementSibling === null) {
         newItem.classList.add('carousel__slide', 'current-slide');
@@ -101,7 +98,7 @@ const viewFiles = () => {
                 slides.push(newItem); 
                 thumbs.push(newThumb);
                 // add appropriate classes to new image slide
-                setSlideClass(image, newItem);
+                setSlideClass(newItem);
                 setThumbClass(newThumb);
 
             }, false);
